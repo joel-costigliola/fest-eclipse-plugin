@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Fest-eclipse-plugin
+Bundle-SymbolicName: fest-eclipse-plugin;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.fest.eclipse.plugin.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core;bundle-version="3.8.1"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
