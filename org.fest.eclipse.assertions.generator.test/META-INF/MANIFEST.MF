@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Fest Assertions Generator Plug-in Test
+Bundle-SymbolicName: org.fest.eclipse.assertions.generator.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Require-Bundle: org.eclipse.core.commands,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jdt.core,
+ org.eclipse.jdt.launching,
+ org.eclipse.jdt.ui,
+ org.eclipse.ui,
+ org.eclipse.ui.ide,
+ org.fest.eclipse.assertions.generator,
+ org.fest.eclipse.test.dependencies,
+ org.junit4;bundle-version="4.8.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: FEST (Fixtures for Easy Software Testing)

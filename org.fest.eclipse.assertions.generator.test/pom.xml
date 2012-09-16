@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <relativePath>../org.fest.eclipse.parent/pom.xml</relativePath>
+    <groupId>org.fest.eclipse</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <!-- plugins are given a different groupId to avoid conflict with features having the same artifactId -->
+  <groupId>org.fest.eclipse.plugins</groupId>
+  <artifactId>org.fest.eclipse.assertions.generator.test</artifactId>
+  <packaging>eclipse-test-plugin</packaging>
+  
+  <name>${project.artifactId}</name>
+  
+  <properties>
+    <tests.use.ui>true</tests.use.ui>
+  </properties>
+</project> 

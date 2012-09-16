@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+org.moreunit.extendedTestMethodSearch=true
+org.moreunit.test_methodType=testMethodTypeNoPrefix
+org.moreunit.unitsourcefolder=org.fest.eclipse.assertions.generator\:src\:org.fest.eclipse.assertions.generator.test\:test
+org.moreunit.useprojectsettings=true

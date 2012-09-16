@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Fest Assertions Generator Plug-in
+Bundle-SymbolicName: org.fest.eclipse.assertions.generator;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin
+Require-Bundle: org.eclipse.core.expressions,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jdt.core,
+ org.eclipse.jface.text,
+ org.eclipse.ui,
+ org.eclipse.ui.ide
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ClassPath: .,
+ lib/assertion-generator.jar,
+ lib/commons-io-2.3.jar,
+ lib/commons-lang3-3.1.jar,
+ lib/fest-util-1.2.1.jar,
+ lib/logback-classic-1.0.6.jar,
+ logo-white-bg-32x32.png
+Bundle-Vendor: FEST (Fixtures for Easy Software Testing)
+Export-Package: org.fest.assertions.generator.description;x-friends:="org.fest.eclipse.assertions.generator.test",
+ org.fest.eclipse.assertions.generator.internal.generation;x-friends:="org.fest.eclipse.assertions.generator.test",
+ org.fest.eclipse.assertions.generator.internal.log;x-friends:="org.fest.eclipse.assertions.generator.test",
+ org.fest.eclipse.assertions.generator.internal.util;x-friends:="org.fest.eclipse.assertions.generator.test"
