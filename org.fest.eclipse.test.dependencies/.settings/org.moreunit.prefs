@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+org.moreunit.extendedTestMethodSearch=true
+org.moreunit.test_methodType=testMethodTypeNoPrefix
+org.moreunit.unitsourcefolder=org.fest.eclipse.test.dependencies\:src\:org.moreunit.test.dependencies\:test
+org.moreunit.useprojectsettings=true

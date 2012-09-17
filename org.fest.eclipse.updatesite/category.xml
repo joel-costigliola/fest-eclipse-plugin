@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.fest.eclipse.assertions.generator_1.0.0.qualifier.jar" id="org.fest.eclipse.assertions.generator" version="1.0.0.qualifier">
+      <category name="org.fest.eclipse.assertions"/>
+   </feature>
+   <category-def name="org.fest.eclipse.assertions" label="Fest Assertions"/>
+</site>
