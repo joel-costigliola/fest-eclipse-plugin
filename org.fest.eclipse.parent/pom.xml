@@ -99,8 +99,8 @@
         <groupId>org.eclipse.tycho</groupId>
         <artifactId>tycho-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.6</source>
+          <target>1.6</target>
         </configuration>
       </plugin>
       <plugin>
@@ -152,6 +152,7 @@
   </build>
 
   <profiles>
+
     <profile>
       <id>non-osx</id>
       <activation>
@@ -200,7 +201,7 @@
       </build>
     </profile>
 
-  	<profile>
+    <profile>
       <id>osx</id>
       <activation>
         <os>
@@ -232,5 +233,6 @@
         </pluginManagement>
       </build>
     </profile>
+
   </profiles>
 </project> 
