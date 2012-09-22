@@ -2,19 +2,19 @@ package org.fest.eclipse.assertions.generator.internal.generation;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.extractProperty;
-import static org.fest.assertions.api.Assertions.failBecauseExceptionWasNotThrown;
 
 import org.eclipse.jdt.core.IType;
-import org.fest.assertions.generator.description.ClassDescription;
-import org.fest.assertions.generator.description.GetterDescription;
-import org.fest.assertions.generator.description.TypeName;
-import org.fest.eclipse.assertions.generator.internal.log.Logger;
-import org.fest.eclipse.test.SimpleProjectTestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import org.fest.assertions.generator.description.ClassDescription;
+import org.fest.assertions.generator.description.GetterDescription;
+import org.fest.assertions.generator.description.TypeName;
+import org.fest.eclipse.assertions.generator.internal.log.Logger;
+import org.fest.eclipse.test.SimpleProjectTestCase;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TypeToClassDescriptionConverterTest extends SimpleProjectTestCase {
@@ -67,7 +67,7 @@ public class TypeToClassDescriptionConverterTest extends SimpleProjectTestCase {
     assertThat(getterDesc.isPrimitivePropertyType()).isTrue();
     assertThat(getterDesc.getPropertyName()).isEqualTo("shortValue");
     assertThat(getterDesc.getPropertyTypeName()).isEqualTo("short");
-    assertThatElementTypeNameIsNull(getterDesc);
+    assertThat(getterDesc.getElementTypeName()).isNull();
 
     assertThat(classDesc.getImports()).isEmpty();
   }
@@ -96,7 +96,7 @@ public class TypeToClassDescriptionConverterTest extends SimpleProjectTestCase {
     assertThat(getterDesc.isPrimitivePropertyType()).isTrue();
     assertThat(getterDesc.getPropertyName()).isEqualTo("boolProp");
     assertThat(getterDesc.getPropertyTypeName()).isEqualTo("boolean");
-    assertThatElementTypeNameIsNull(getterDesc);
+    assertThat(getterDesc.getElementTypeName()).isNull();
 
     assertThat(classDesc.getImports()).isEmpty();
   }
@@ -126,7 +126,7 @@ public class TypeToClassDescriptionConverterTest extends SimpleProjectTestCase {
     assertThat(getterDesc.isPrimitivePropertyType()).isFalse();
     assertThat(getterDesc.getPropertyName()).isEqualTo("someDate");
     assertThat(getterDesc.getPropertyTypeName()).isEqualTo("Date");
-    assertThatElementTypeNameIsNull(getterDesc);
+    assertThat(getterDesc.getElementTypeName()).isNull();
 
     assertThat(classDesc.getImports()).containsOnly(new TypeName("java.util.Date"));
   }
@@ -274,17 +274,5 @@ public class TypeToClassDescriptionConverterTest extends SimpleProjectTestCase {
     // then
     assertThat(classDesc.getGetters()).hasSize(2);
     assertThat(extractProperty("propertyName").from(classDesc.getGetters())).contains("someDate", "shortValue");
-  }
-
-  /**
-   * Calling {@code assertThat(getterDesc.getElementTypeName()).isNull()} throws a NPE, so...
-   */
-  private void assertThatElementTypeNameIsNull(GetterDescription getterDesc) {
-    try {
-      getterDesc.getElementTypeName();
-      failBecauseExceptionWasNotThrown(NullPointerException.class);
-    } catch (NullPointerException e) {
-      // success
-    }
   }
 }
