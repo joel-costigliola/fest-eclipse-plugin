@@ -20,6 +20,7 @@ import java.util.TreeSet;
 
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+
 import org.fest.assertions.generator.description.ClassDescription;
 import org.fest.assertions.generator.description.GetterDescription;
 import org.fest.assertions.generator.description.TypeDescription;
@@ -67,22 +68,18 @@ public class TypeToClassDescriptionConverter implements ClassDescriptionConverte
     Type propertyType = getter.getReturnType();
     TypeDescription typeDescription = new TypeDescription(new TypeName(propertyType.getUnparameterizedQualifiedName()));
 
-    if (propertyType.isParameterized()) {
-      typeDescription.setGeneric(true);
-      typeDescription.setElementTypeName(new TypeName(propertyType.getFirstParameter().getUnparameterizedQualifiedName()));
-    }
-
     if (propertyType.isArray()) {
       typeDescription.setElementTypeName(new TypeName(propertyType.getComponentType().getUnparameterizedQualifiedName()));
       typeDescription.setArray(true);
     } else if (propertyType.isIterable()) {
       typeDescription.setIterable(true);
-      if (typeDescription.getElementTypeName() == null) {
+      if (propertyType.isParameterized()) {
+        typeDescription.setElementTypeName(new TypeName(propertyType.getFirstParameter().getUnparameterizedQualifiedName()));
+      } else {
         typeDescription.setElementTypeName(new TypeName("java.lang.Object"));
       }
     }
 
-    // TODO what if there is several parameter types ?
     return new GetterDescription(getter.getPropertyName(), typeDescription);
   }
 

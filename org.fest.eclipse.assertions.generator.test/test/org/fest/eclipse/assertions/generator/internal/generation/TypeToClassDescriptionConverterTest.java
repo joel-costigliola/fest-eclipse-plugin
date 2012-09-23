@@ -187,9 +187,40 @@ public class TypeToClassDescriptionConverterTest extends SimpleProjectTestCase {
     assertThat(getterDesc.isPrimitivePropertyType()).isFalse();
     assertThat(getterDesc.getPropertyName()).isEqualTo("dateComparator");
     assertThat(getterDesc.getPropertyTypeName()).isEqualTo("Comparator");
-    assertThat(getterDesc.getElementTypeName()).isEqualTo("Date");
+    assertThat(getterDesc.getElementTypeName()).isNull();
 
     assertThat(classDesc.getImports()).containsOnly(new TypeName("java.util.Comparator"), new TypeName("java.util.Date"));
+  }
+
+  @Test
+  public void should_describe_multiple_generics_getter() throws Exception {
+    // given
+    IType type = createClassFromSource(""
+        + "package pack.age;"
+        + "import java.util.Date;"
+        + "import java.util.Map;"
+        + "public class Thing5bis {"
+        + "  public Map<String, Date> getBirthdaysByName() {"
+        + "    return null;"
+        + "  }"
+        + "}");
+
+    // when
+    ClassDescription classDesc = converter.convertToClassDescription(type);
+
+    // then
+    assertThat(classDesc.getGetters()).hasSize(1);
+
+    GetterDescription getterDesc = classDesc.getGetters().iterator().next();
+    assertThat(getterDesc.isArrayPropertyType()).isFalse();
+    assertThat(getterDesc.isBooleanPropertyType()).isFalse();
+    assertThat(getterDesc.isIterablePropertyType()).isFalse();
+    assertThat(getterDesc.isPrimitivePropertyType()).isFalse();
+    assertThat(getterDesc.getPropertyName()).isEqualTo("birthdaysByName");
+    assertThat(getterDesc.getPropertyTypeName()).isEqualTo("Map");
+    assertThat(getterDesc.getElementTypeName()).isNull();
+
+    assertThat(classDesc.getImports()).containsOnly(new TypeName("java.util.Map"), new TypeName("java.util.Date"));
   }
 
   @Test
