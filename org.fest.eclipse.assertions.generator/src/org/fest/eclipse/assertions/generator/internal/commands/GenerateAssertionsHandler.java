@@ -29,6 +29,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.ide.IDE;
+
 import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
 import org.fest.eclipse.assertions.generator.internal.generation.EclipseAssertionGenerator;
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
@@ -38,13 +39,13 @@ public class GenerateAssertionsHandler extends AbstractHandler {
 
   private final Logger logger;
   private final TypeSelectionProvider selectionProvider;
-  private final EclipseAssertionGenerator generator;
+  private final EclipseAssertionGenerator assertionGenerator;
   private final SourceFormatter formatter;
 
   public GenerateAssertionsHandler() throws IOException {
     logger = AssertionGeneratorPlugin.get().getLogger();
     selectionProvider = new TypeSelectionProvider(logger);
-    generator = new EclipseAssertionGenerator();
+    assertionGenerator = new EclipseAssertionGenerator();
     formatter = new SourceFormatter(logger);
   }
 
@@ -54,17 +55,14 @@ public class GenerateAssertionsHandler extends AbstractHandler {
       return null;
     }
 
-    File assertionFile = generator.generateAssertionsFor(type);
+    File assertionFile = assertionGenerator.generateAssertionsFor(type);
     if (assertionFile == null) {
       return null;
     }
 
     IFile iFile = toIFile(assertionFile);
-
     // TODO organize imports, see http://stackoverflow.com/questions/2764428/calling-organize-imports-programmatically
-
     format(iFile);
-
     openEditor(iFile, event);
 
     return null;

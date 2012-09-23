@@ -12,8 +12,12 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
+
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
 
+/**
+ * Understands how to extract a {@link IType} from an {@link ExecutionEvent} corresponding to a user selecting a class to generate assertion for.
+ */
 public class TypeSelectionProvider {
 
   private final Logger logger;
@@ -23,22 +27,18 @@ public class TypeSelectionProvider {
   }
 
   public IType getSelectedType(ExecutionEvent event) {
-    Object firstElement = getUniqueSelectedElement(event);
-    if (firstElement instanceof IAdaptable) {
-      IType type = toType((IAdaptable) firstElement);
+    Object selectedElement = getUniqueSelectedElement(event);
+    if (selectedElement instanceof IAdaptable) {
+      IType type = toType((IAdaptable) selectedElement);
       if (type != null) {
-        if (logger.debugEnabled()) {
-          logger.debug("Found type " + type.getFullyQualifiedName() + " in selection");
-        }
+        logger.debug("Found type " + type.getFullyQualifiedName() + " in selection");
         return type;
       }
     }
 
     IType type = toType(getActiveEditorInput(event));
     if (type != null) {
-      if (logger.debugEnabled()) {
-        logger.debug("Found type " + type.getFullyQualifiedName() + " in editor");
-      }
+      logger.debug("Found type " + type.getFullyQualifiedName() + " in editor");
       return type;
     }
 

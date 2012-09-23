@@ -20,6 +20,7 @@ import java.io.PrintStream;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+
 import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
 
 public class DefaultLogger implements Logger {
