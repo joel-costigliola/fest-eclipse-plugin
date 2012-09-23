@@ -30,7 +30,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.ide.IDE;
 import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
-import org.fest.eclipse.assertions.generator.internal.generation.Generator;
+import org.fest.eclipse.assertions.generator.internal.generation.EclipseAssertionGenerator;
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
 import org.fest.eclipse.assertions.generator.internal.text.SourceFormatter;
 
@@ -38,13 +38,13 @@ public class GenerateAssertionsHandler extends AbstractHandler {
 
   private final Logger logger;
   private final TypeSelectionProvider selectionProvider;
-  private final Generator generator;
+  private final EclipseAssertionGenerator generator;
   private final SourceFormatter formatter;
 
   public GenerateAssertionsHandler() throws IOException {
     logger = AssertionGeneratorPlugin.get().getLogger();
     selectionProvider = new TypeSelectionProvider(logger);
-    generator = new Generator();
+    generator = new EclipseAssertionGenerator();
     formatter = new SourceFormatter(logger);
   }
 

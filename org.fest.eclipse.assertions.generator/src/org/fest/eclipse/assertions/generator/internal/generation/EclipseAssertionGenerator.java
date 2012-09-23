@@ -21,25 +21,29 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
+
 import org.fest.assertions.generator.BaseAssertionGenerator;
 import org.fest.assertions.generator.description.ClassDescription;
 import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
 
-public class Generator {
+/**
+ * An assertion generator taking {@link IType} as input.
+ */
+public class EclipseAssertionGenerator {
 
   private final Logger logger;
   private final TypeToClassDescriptionConverter classDescriptionConverter;
   private final BaseAssertionGenerator assertionGenerator;
 
-  public Generator() throws IOException {
+  public EclipseAssertionGenerator() throws IOException {
     logger = AssertionGeneratorPlugin.get().getLogger();
     classDescriptionConverter = new TypeToClassDescriptionConverter(logger);
     assertionGenerator = new BaseAssertionGenerator();
   }
 
   public File generateAssertionsFor(IType type) {
-    ClassDescription classDescription = toClassDescription(type);
+    ClassDescription classDescription = classDescriptionConverter.convertToClassDescription(type);
     File destinationFolder = getPackageFolder(type);
 
     File assertionFile = generateAssertionFor(classDescription, destinationFolder);
@@ -49,10 +53,6 @@ public class Generator {
     }
 
     return assertionFile;
-  }
-
-  private ClassDescription toClassDescription(IType type) {
-    return classDescriptionConverter.convertToClassDescription(type);
   }
 
   private File getPackageFolder(IType type) {
@@ -81,8 +81,6 @@ public class Generator {
     try {
       IResource resource = packageFragment.getCorrespondingResource();
       resource.refreshLocal(IResource.DEPTH_ONE, null);
-    } catch (JavaModelException e) {
-      logger.error("Could not refresh package " + packageFragment.getElementName(), e);
     } catch (CoreException e) {
       logger.error("Could not refresh package " + packageFragment.getElementName(), e);
     }
