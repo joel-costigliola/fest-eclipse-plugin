@@ -13,6 +13,8 @@
  */
 package org.fest.eclipse.assertions.generator.internal.dom;
 
+import static org.fest.assertions.generator.util.ClassUtil.isValidGetterName;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.fest.eclipse.assertions.generator.internal.util.ClassUtil;
 
 public class GetterCollector extends ASTVisitor {
 
@@ -46,7 +47,7 @@ public class GetterCollector extends ASTVisitor {
   }
 
   private boolean isGetter(MethodDeclaration m) {
-    return m.getReturnType2() != null && m.parameters().isEmpty() && ClassUtil.isValidGetterName(m.getName().toString());
+    return m.getReturnType2() != null && m.parameters().isEmpty() && isValidGetterName(m.getName().toString());
   }
 
   public List<Getter> getResult() {
