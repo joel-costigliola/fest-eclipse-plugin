@@ -7,7 +7,6 @@
   <packaging>pom</packaging>
   <name>Fest Eclipse Parent</name>
   <modules>
-    <module>../org.fest.eclipse.test.dependencies</module>
     <module>../org.fest.eclipse.assertions.generator</module>
     <module>../org.fest.eclipse.assertions.generator.test</module>
     <module>../org.fest.eclipse.assertions.generator.feature</module>
