@@ -4,10 +4,10 @@ Bundle-Name: Fest Assertions Generator Plug-in Test
 Bundle-SymbolicName: org.fest.eclipse.assertions.generator.test
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .,
- lib/fest-util-1.2.2.jar,
  lib/guava-10.0.1.jar,
  lib/mockito-all-1.9.0.jar,
- lib/fest-assert-core-2.0M8.jar
+ lib/fest-assert-core-2.0M8.jar,
+ lib/fest-util-1.2.3.jar
 Require-Bundle: org.eclipse.core.commands,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
