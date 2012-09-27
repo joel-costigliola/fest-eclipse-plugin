@@ -11,12 +11,12 @@
  *
  * Copyright @2012 the original author or authors.
  */
-package org.fest.eclipse.assertions.generator.internal.dom;
+package org.fest.eclipse.assertions.generator.internal.converter;
+
+import static org.apache.commons.lang3.StringUtils.uncapitalize;
 
 import static org.fest.assertions.generator.util.ClassUtil.GET_PREFIX;
 import static org.fest.assertions.generator.util.ClassUtil.IS_PREFIX;
-
-import org.eclipse.jdt.core.JavaModelException;
 
 public class Getter {
 
@@ -41,21 +41,11 @@ public class Getter {
    * 
    * <pre>
    * getName -> name
-   * </pre>
-   * 
-   * <pre>
    * isMostValuablePlayer -> mostValuablePlayer
    * </pre>
-   * 
-   * @throws JavaModelException
    */
-  public String getPropertyName() throws JavaModelException {
+  public String getPropertyName() {
     String property = name.startsWith(IS_PREFIX) ? name.substring(IS_PREFIX.length()) : name.substring(GET_PREFIX.length());
-    return uncapitalizeFirstChar(property);
-  }
-
-  private String uncapitalizeFirstChar(String property) {
-    String firstChar = property.substring(0, 1).toLowerCase();
-    return property.length() == 1 ? firstChar : firstChar + property.substring(1);
+    return uncapitalize(property);
   }
 }

@@ -11,7 +11,7 @@
  *
  * Copyright @2012 the original author or authors.
  */
-package org.fest.eclipse.assertions.generator.internal.generation;
+package org.fest.eclipse.assertions.generator.internal.converter;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,24 +26,20 @@ import org.fest.assertions.generator.description.GetterDescription;
 import org.fest.assertions.generator.description.TypeDescription;
 import org.fest.assertions.generator.description.TypeName;
 import org.fest.assertions.generator.description.converter.ClassDescriptionConverter;
-import org.fest.eclipse.assertions.generator.internal.dom.DomRequestor;
-import org.fest.eclipse.assertions.generator.internal.dom.Getter;
-import org.fest.eclipse.assertions.generator.internal.dom.Type;
+import org.fest.eclipse.assertions.generator.internal.converter.util.GetterCollector;
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
 
 // TODO extract logic common to ClassToClassDescriptionConverter and TypeToClassDescriptionConverter
 public class TypeToClassDescriptionConverter implements ClassDescriptionConverter<IType> {
 
   private final Logger logger;
-  private final DomRequestor domRequestor;
 
   public TypeToClassDescriptionConverter(Logger logger) {
     this.logger = logger;
-    domRequestor = new DomRequestor();
   }
 
   public ClassDescription convertToClassDescription(IType type) {
-    List<Getter> getters = domRequestor.gettersOf(type);
+    List<Getter> getters = GetterCollector.gettersOf(type);
 
     ClassDescription classDescription = new ClassDescription(new TypeName(type.getElementName(), type.getPackageFragment().getElementName()));
     classDescription.addGetterDescriptions(createGetterDescriptions(getters));

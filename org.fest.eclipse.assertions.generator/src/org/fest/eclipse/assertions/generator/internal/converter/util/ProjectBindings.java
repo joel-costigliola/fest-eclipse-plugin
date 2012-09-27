@@ -11,17 +11,16 @@
  *
  * Copyright @2012 the original author or authors.
  */
-package org.fest.eclipse.assertions.generator.internal.dom;
+package org.fest.eclipse.assertions.generator.internal.converter.util;
 
 import org.eclipse.jdt.core.BindingKey;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.ASTParser;
-import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 
 /**
- * Utility methods pertaining to {@link IBinding}s, contextually to a given project.
+ * Utility methods pertaining to {@link ITypeBinding}s, contextually to a given project.
  */
 public class ProjectBindings {
 
@@ -30,26 +29,20 @@ public class ProjectBindings {
 
   public ProjectBindings(IJavaProject project) {
     this.project = project;
+    this.iterableTypeBinding = getTypeBinding("java.lang.Iterable");
   }
 
   public boolean isIterable(ITypeBinding binding) {
-    return isSuperType(getIterableBinding(), binding);
+    return isSuperType(iterableTypeBinding, binding);
   }
 
   private ITypeBinding getTypeBinding(String typeName) {
-    final ASTParser parser = new AstParserFactory().parserFor(project);
+    final ASTParser projectParser = AstParserFactory.astParserFor(project);
 
     String[] keys = new String[] { BindingKey.createTypeBindingKey(typeName) };
-    final TypeBindingRequestor requestor = new TypeBindingRequestor();
-    parser.createASTs(new ICompilationUnit[] {}, keys, requestor, null);
-    return requestor.getResult();
-  }
-
-  private ITypeBinding getIterableBinding() {
-    if (iterableTypeBinding == null) {
-      iterableTypeBinding = getTypeBinding("java.lang.Iterable");
-    }
-    return iterableTypeBinding;
+    final ITypeBindingRequestor requestor = new ITypeBindingRequestor();
+    projectParser.createASTs(new ICompilationUnit[] {}, keys, requestor, null);
+    return requestor.getITypeBinding();
   }
 
   /**
@@ -65,7 +58,7 @@ public class ProjectBindings {
    *          the type whose super types are looked at
    * @return <code>true</code> iff <code>possibleSuperType</code> is a super type of <code>type</code> or is equal to it
    */
-  public static boolean isSuperType(ITypeBinding possibleSuperType, ITypeBinding type) {
+  private static boolean isSuperType(ITypeBinding possibleSuperType, ITypeBinding type) {
     if (type.isArray() || type.isPrimitive()) {
       return false;
     }

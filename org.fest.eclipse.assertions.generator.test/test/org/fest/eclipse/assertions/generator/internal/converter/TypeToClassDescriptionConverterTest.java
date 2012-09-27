@@ -1,4 +1,4 @@
-package org.fest.eclipse.assertions.generator.internal.generation;
+package org.fest.eclipse.assertions.generator.internal.converter;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 import static org.fest.assertions.api.Assertions.extractProperty;

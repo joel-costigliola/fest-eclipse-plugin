@@ -25,6 +25,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.fest.assertions.generator.BaseAssertionGenerator;
 import org.fest.assertions.generator.description.ClassDescription;
 import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
+import org.fest.eclipse.assertions.generator.internal.converter.TypeToClassDescriptionConverter;
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
 
 /**

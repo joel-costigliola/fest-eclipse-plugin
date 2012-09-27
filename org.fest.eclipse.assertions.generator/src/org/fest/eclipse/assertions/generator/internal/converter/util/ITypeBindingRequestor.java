@@ -11,23 +11,23 @@
  *
  * Copyright @2012 the original author or authors.
  */
-package org.fest.eclipse.assertions.generator.internal.dom;
+package org.fest.eclipse.assertions.generator.internal.converter.util;
 
 import org.eclipse.jdt.core.dom.ASTRequestor;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 
-public class TypeBindingRequestor extends ASTRequestor {
+public class ITypeBindingRequestor extends ASTRequestor {
 
-  private ITypeBinding result;
+  private ITypeBinding iTypeBinding;
 
   public void acceptBinding(String bindingKey, IBinding binding) {
-    if (result == null && binding != null && binding.getKind() == IBinding.TYPE) {
-      result = (ITypeBinding) binding;
+    if (iTypeBinding == null && binding != null && binding.getKind() == IBinding.TYPE) {
+      iTypeBinding = (ITypeBinding) binding;
     }
   }
 
-  public ITypeBinding getResult() {
-    return result;
+  public ITypeBinding getITypeBinding() {
+    return iTypeBinding;
   }
 }

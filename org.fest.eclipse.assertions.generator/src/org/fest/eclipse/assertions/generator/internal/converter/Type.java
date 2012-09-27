@@ -11,29 +11,30 @@
  *
  * Copyright @2012 the original author or authors.
  */
-package org.fest.eclipse.assertions.generator.internal.dom;
+package org.fest.eclipse.assertions.generator.internal.converter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ITypeBinding;
 
+import org.fest.eclipse.assertions.generator.internal.converter.util.ProjectBindings;
+
 public class Type {
 
   private static final String JAVA_LANG = "java.lang";
 
-  private final ITypeBinding binding;
-  private final ProjectBindings bindings;
+  private final ITypeBinding typeBinding;
+  private final ProjectBindings projectBindings;
   private final List<Type> parameters;
 
-  Type(ITypeBinding binding, ProjectBindings bindings) {
-    this.binding = binding;
-    this.bindings = bindings;
+  public Type(ITypeBinding iTypeBinding, ProjectBindings projectBindings) {
+    this.typeBinding = iTypeBinding;
+    this.projectBindings = projectBindings;
 
-    parameters = new ArrayList<Type>();
-
-    for (ITypeBinding p : binding.getTypeArguments()) {
-      parameters.add(new Type(p, bindings));
+    this.parameters = new ArrayList<Type>();
+    for (ITypeBinding typeArgument : iTypeBinding.getTypeArguments()) {
+      this.parameters.add(new Type(typeArgument, projectBindings));
     }
   }
 
@@ -46,7 +47,7 @@ public class Type {
   }
 
   public String getUnparameterizedQualifiedName() {
-    String name = binding.getQualifiedName();
+    String name = typeBinding.getQualifiedName();
 
     int sbIdx = name.indexOf('<');
     if (sbIdx == -1) {
@@ -56,11 +57,11 @@ public class Type {
   }
 
   public boolean isArray() {
-    return binding.isArray();
+    return typeBinding.isArray();
   }
 
   public boolean isIterable() {
-    return bindings.isIterable(binding);
+    return projectBindings.isIterable(typeBinding);
   }
 
   public boolean isParameterized() {
@@ -68,14 +69,14 @@ public class Type {
   }
 
   public Type getComponentType() {
-    return new Type(binding.getComponentType(), bindings);
+    return new Type(typeBinding.getComponentType(), projectBindings);
   }
 
   public boolean isPrimitive() {
-    return binding.isPrimitive();
+    return typeBinding.isPrimitive();
   }
 
   public boolean belongsToJavaLang() {
-    return binding.getPackage().getName().equals(JAVA_LANG);
+    return typeBinding.getPackage().getName().equals(JAVA_LANG);
   }
 }
