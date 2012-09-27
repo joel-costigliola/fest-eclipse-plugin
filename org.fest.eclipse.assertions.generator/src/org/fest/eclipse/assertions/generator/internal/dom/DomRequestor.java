@@ -31,7 +31,7 @@ public class DomRequestor {
     CompilationUnit cu = parse(type.getCompilationUnit());
     GetterCollector collector = new GetterCollector(type);
     cu.accept(collector);
-    return collector.getResult();
+    return collector.collectedGetters();
   }
 
   private CompilationUnit parse(ICompilationUnit cu) {

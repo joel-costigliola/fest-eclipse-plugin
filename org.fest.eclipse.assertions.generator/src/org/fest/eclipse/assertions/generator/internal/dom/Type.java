@@ -60,7 +60,7 @@ public class Type {
   }
 
   public boolean isIterable() {
-    return bindings.isIterable(binding, false);
+    return bindings.isIterable(binding);
   }
 
   public boolean isParameterized() {

@@ -17,7 +17,6 @@ Require-Bundle: org.eclipse.core.commands,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.fest.eclipse.assertions.generator,
- org.fest.eclipse.test.dependencies,
  org.junit4;bundle-version="4.8.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: FEST (Fixtures for Easy Software Testing)

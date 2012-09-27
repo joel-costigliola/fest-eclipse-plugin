@@ -13,8 +13,10 @@
  */
 package org.fest.eclipse.assertions.generator.internal.dom;
 
+import static org.fest.assertions.generator.util.ClassUtil.GET_PREFIX;
+import static org.fest.assertions.generator.util.ClassUtil.IS_PREFIX;
+
 import org.eclipse.jdt.core.JavaModelException;
-import org.fest.assertions.generator.util.ClassUtil;
 
 public class Getter {
 
@@ -48,7 +50,7 @@ public class Getter {
    * @throws JavaModelException
    */
   public String getPropertyName() throws JavaModelException {
-    String property = name.startsWith(ClassUtil.IS_PREFIX) ? name.substring(ClassUtil.IS_PREFIX.length()) : name.substring(ClassUtil.GET_PREFIX.length());
+    String property = name.startsWith(IS_PREFIX) ? name.substring(IS_PREFIX.length()) : name.substring(GET_PREFIX.length());
     return uncapitalizeFirstChar(property);
   }
 

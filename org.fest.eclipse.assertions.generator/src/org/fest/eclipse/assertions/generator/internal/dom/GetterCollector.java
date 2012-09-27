@@ -26,11 +26,11 @@ import org.eclipse.jdt.core.dom.MethodDeclaration;
 public class GetterCollector extends ASTVisitor {
 
   private final ProjectBindings bindings;
-  private final List<Getter> result;
+  private final List<Getter> collectedGetters;
 
   public GetterCollector(IType type) {
     bindings = new ProjectBindings(type.getJavaProject());
-    result = new ArrayList<Getter>();
+    collectedGetters = new ArrayList<Getter>();
   }
 
   @Override
@@ -43,14 +43,14 @@ public class GetterCollector extends ASTVisitor {
 
     String name = method.getName().toString();
     Type returnType = new Type(returnTypeBinding, bindings);
-    result.add(new Getter(name, returnType));
+    collectedGetters.add(new Getter(name, returnType));
   }
 
   private boolean isGetter(MethodDeclaration m) {
     return m.getReturnType2() != null && m.parameters().isEmpty() && isValidGetterName(m.getName().toString());
   }
 
-  public List<Getter> getResult() {
-    return result;
+  public List<Getter> collectedGetters() {
+    return collectedGetters;
   }
 }

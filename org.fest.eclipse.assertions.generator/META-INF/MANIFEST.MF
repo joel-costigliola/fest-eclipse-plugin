@@ -22,5 +22,4 @@ Bundle-ClassPath: .,
 Bundle-Vendor: FEST (Fixtures for Easy Software Testing)
 Export-Package: org.fest.assertions.generator.description;x-friends:="org.fest.eclipse.assertions.generator.test",
  org.fest.eclipse.assertions.generator.internal.generation;x-friends:="org.fest.eclipse.assertions.generator.test",
- org.fest.eclipse.assertions.generator.internal.log;x-friends:="org.fest.eclipse.assertions.generator.test",
- org.fest.eclipse.assertions.generator.internal.util;x-friends:="org.fest.eclipse.assertions.generator.test"
+ org.fest.eclipse.assertions.generator.internal.log;x-friends:="org.fest.eclipse.assertions.generator.test"

@@ -26,16 +26,18 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 public class ProjectBindings {
 
   private final IJavaProject project;
-  private final AstParserFactory parserFactory;
-  private ITypeBinding iterableBinding;
+  private ITypeBinding iterableTypeBinding;
 
   public ProjectBindings(IJavaProject project) {
     this.project = project;
-    parserFactory = new AstParserFactory();
   }
 
-  public ITypeBinding getTypeBinding(String typeName) {
-    final ASTParser parser = parserFactory.parserFor(project);
+  public boolean isIterable(ITypeBinding binding) {
+    return isSuperType(getIterableBinding(), binding);
+  }
+
+  private ITypeBinding getTypeBinding(String typeName) {
+    final ASTParser parser = new AstParserFactory().parserFor(project);
 
     String[] keys = new String[] { BindingKey.createTypeBindingKey(typeName) };
     final TypeBindingRequestor requestor = new TypeBindingRequestor();
@@ -43,14 +45,47 @@ public class ProjectBindings {
     return requestor.getResult();
   }
 
-  public boolean isIterable(ITypeBinding binding, boolean considerTypeArguments) {
-    return Bindings.isSuperType(getIterableBinding(), binding, considerTypeArguments);
+  private ITypeBinding getIterableBinding() {
+    if (iterableTypeBinding == null) {
+      iterableTypeBinding = getTypeBinding("java.lang.Iterable");
+    }
+    return iterableTypeBinding;
   }
 
-  private ITypeBinding getIterableBinding() {
-    if (iterableBinding == null) {
-      iterableBinding = getTypeBinding("java.lang.Iterable");
+  /**
+   * Returns <code>true</code> if the given type is a super type of a candidate. <code>true</code> is returned if the two type bindings are identical.
+   * 
+   * <p>
+   * Note: shamelessly copied from org.eclipse.jdt.internal.corext.dom.Bindings
+   * </p>
+   * 
+   * @param possibleSuperType
+   *          the type to inspect
+   * @param type
+   *          the type whose super types are looked at
+   * @return <code>true</code> iff <code>possibleSuperType</code> is a super type of <code>type</code> or is equal to it
+   */
+  public static boolean isSuperType(ITypeBinding possibleSuperType, ITypeBinding type) {
+    if (type.isArray() || type.isPrimitive()) {
+      return false;
     }
-    return iterableBinding;
+    ITypeBinding typeDeclaration = type.getTypeDeclaration();
+    if (typeDeclaration.isEqualTo(possibleSuperType)) {
+      return true;
+    }
+    ITypeBinding superClass = typeDeclaration.getSuperclass();
+    if (superClass != null && isSuperType(possibleSuperType, superClass)) {
+      return true;
+    }
+
+    if (possibleSuperType.isInterface()) {
+      ITypeBinding[] superInterfaces = typeDeclaration.getInterfaces();
+      for (int i = 0; i < superInterfaces.length; i++) {
+        if (isSuperType(possibleSuperType, superInterfaces[i])) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
