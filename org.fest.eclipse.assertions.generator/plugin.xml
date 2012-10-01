@@ -33,5 +33,13 @@
       <separator name="org.fest.eclipse.assertions.generator.menu.generateAssertions.end" visible="true" />
     </menuContribution>
   </extension>
+  <extension
+        point="org.eclipse.ui.preferencePages">
+     <page
+           class="org.fest.eclipse.assertions.preferences.AssertionsPreferencePage"
+           id="org.fest.eclipse.assertionsPreferencePage"
+           name="Fest Assertions">
+     </page>
+  </extension>
 
 </plugin>

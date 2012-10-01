@@ -14,14 +14,14 @@
 package org.fest.eclipse.assertions.generator.internal;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleContext;
+
 import org.fest.eclipse.assertions.generator.internal.log.DefaultLogger;
 import org.fest.eclipse.assertions.generator.internal.log.Logger;
-import org.osgi.framework.BundleContext;
 
 public class AssertionGeneratorPlugin extends AbstractUIPlugin {
 
   public static final String PLUGIN_ID = "org.fest.eclipse.assertions.generator"; //$NON-NLS-1$
-
   private static final String LOG_LEVEL_PROPERTY = PLUGIN_ID + ".log.level"; //$NON-NLS-1$
 
   private static AssertionGeneratorPlugin plugin;
@@ -29,22 +29,30 @@ public class AssertionGeneratorPlugin extends AbstractUIPlugin {
   private Logger logger;
 
   public AssertionGeneratorPlugin() {
+    setInstance(this);
   }
 
+  private static void setInstance(AssertionGeneratorPlugin instance) {
+    plugin = instance;
+  }
+
+  public static AssertionGeneratorPlugin plugin() {
+    return plugin;
+  }
+
+  @Override
   public void start(BundleContext context) throws Exception {
     super.start(context);
-    plugin = this;
-
     logger = new DefaultLogger(getLog(), LOG_LEVEL_PROPERTY);
-
-    logger.info("Plugin started");
+    logger.info("AssertionGeneratorPlugin started");
   }
 
+  @Override
   public void stop(BundleContext context) throws Exception {
-    logger.info("Stopping plugin...");
-
-    plugin = null;
+    logger.info("Stopping AssertionGeneratorPlugin ...");
     super.stop(context);
+    plugin = null;
+    logger.info("AssertionGeneratorPlugin stopped");
   }
 
   public static AssertionGeneratorPlugin get() {
