@@ -6,7 +6,6 @@ import static org.fest.eclipse.assertions.preferences.PreferenceConstants.TEXT_G
 import static org.fest.eclipse.assertions.preferences.PreferenceConstants.TEXT_TEST_SOURCE_FOLDER;
 import static org.fest.eclipse.assertions.preferences.PreferenceConstants.TOOLTIP_TEST_SOURCE_FOLDER;
 
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -39,7 +38,7 @@ public class AssertionsPreferencePage extends PreferencePage implements IWorkben
   protected Control createContents(Composite parent) {
     initializeDialogUnits(parent);
 
-    Composite contentComposite = new Composite(parent, SWT.NONE);
+    Composite contentComposite = new Composite(parent, NONE);
     GridLayout layout = new GridLayout();
     layout.marginWidth = 0;
     layout.marginRight = 10;
@@ -49,13 +48,13 @@ public class AssertionsPreferencePage extends PreferencePage implements IWorkben
 
     createTestSourceFolderField(contentComposite);
 
-    Dialog.applyDialogFont(contentComposite);
+    applyDialogFont(contentComposite);
 
     return parent;
   }
 
   private void createTestSourceFolderField(Composite parent) {
-    Label label = new Label(parent, SWT.NONE);
+    Label label = new Label(parent, NONE);
     label.setText(TEXT_TEST_SOURCE_FOLDER);
     label.setToolTipText(TOOLTIP_TEST_SOURCE_FOLDER);
 

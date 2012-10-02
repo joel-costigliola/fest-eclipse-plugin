@@ -18,8 +18,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
 import org.fest.eclipse.assertions.util.PluginTools;
 
-public class Preferences
-{
+public class Preferences {
   private static Preferences instance = new Preferences();
 
   private Map<IJavaProject, IPreferenceStore> preferenceMap = new HashMap<IJavaProject, IPreferenceStore>();
@@ -55,16 +54,6 @@ public class Preferences
     getProjectStore(javaProject).setValue(USE_PROJECT_SPECIFIC_SETTINGS, hasProjectSpecificSettings);
   }
 
-  // private IPackageFragmentRoot findDefaultTestSourceFolder(List<IPackageFragmentRoot> sourceFolders) {
-  // String defaultTestSourceFolderPath = getWorkbenchStore().getString(TEST_SOURCE_DIRECTORY);
-  // for (IPackageFragmentRoot sourceFolder : sourceFolders) {
-  // if (getPathStringWithoutProjectName(sourceFolder).equals(defaultTestSourceFolderPath)) {
-  // return sourceFolder;
-  // }
-  // }
-  // return null;
-  // }
-
   public String getTestSourceDirectoryFromPreferences(IJavaProject javaProject) {
     return store(javaProject).getString(TEST_SOURCE_DIRECTORY);
   }
@@ -82,19 +71,15 @@ public class Preferences
     if (javaProject == null)
       return getWorkbenchStore();
 
-    IPreferenceStore resultStore = null;
-
     if (preferenceMap.containsKey(javaProject)) {
-      resultStore = preferenceMap.get(javaProject);
-    } else {
-      ProjectScope projectScopeContext = new ProjectScope(javaProject.getProject());
-      ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(projectScopeContext, PLUGIN_ID);
-      preferenceStore.setSearchContexts(new IScopeContext[] { projectScopeContext });
-      preferenceMap.put(javaProject, preferenceStore);
-      resultStore = preferenceStore;
+      return preferenceMap.get(javaProject);
     }
 
-    return resultStore;
+    ProjectScope projectScopeContext = new ProjectScope(javaProject.getProject());
+    ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(projectScopeContext, PLUGIN_ID);
+    preferenceStore.setSearchContexts(new IScopeContext[] { projectScopeContext });
+    preferenceMap.put(javaProject, preferenceStore);
+    return preferenceStore;
   }
 
   public void clearProjectCache() {
@@ -105,13 +90,11 @@ public class Preferences
 
   public IPackageFragmentRoot getTestSourceFolder(IJavaProject project, IPackageFragmentRoot mainSrcFolder) {
     String testSourceDirectory = getTestSourceDirectoryFromPreferences(project);
-
     for (IPackageFragmentRoot packageFragmentRoot : PluginTools.findJavaSourceFoldersFor(project)) {
       if (PluginTools.getPathStringWithoutProjectName(packageFragmentRoot).equals(testSourceDirectory)) {
         return packageFragmentRoot;
       }
     }
-
     // falls back to given source folder
     return mainSrcFolder;
   }
