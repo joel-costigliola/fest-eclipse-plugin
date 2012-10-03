@@ -6,6 +6,7 @@ import static org.fest.eclipse.assertions.preferences.PreferenceConstants.TEXT_G
 import static org.fest.eclipse.assertions.preferences.PreferenceConstants.TEXT_TEST_SOURCE_FOLDER;
 import static org.fest.eclipse.assertions.preferences.PreferenceConstants.TOOLTIP_TEST_SOURCE_FOLDER;
 
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -25,12 +26,12 @@ import org.fest.eclipse.assertions.generator.internal.AssertionGeneratorPlugin;
  * 
  * @author Joel Costigliola
  */
-public class AssertionsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
+public class FestAssertionsPreferencePage extends PreferencePage implements IWorkbenchPreferencePage
 {
 
   private Text testSourceFolderField;
 
-  public AssertionsPreferencePage() {
+  public FestAssertionsPreferencePage() {
     setDescription(TEXT_GENERAL_SETTINGS);
   }
 
@@ -46,26 +47,27 @@ public class AssertionsPreferencePage extends PreferencePage implements IWorkben
     contentComposite.setLayout(layout);
     contentComposite.setLayoutData(new GridData(FILL_HORIZONTAL));
 
-    createTestSourceFolderField(contentComposite);
+    testSourceFolderField = createTestSourceFolderField(contentComposite, null);
 
     applyDialogFont(contentComposite);
 
     return parent;
   }
 
-  private void createTestSourceFolderField(Composite parent) {
+  public static Text createTestSourceFolderField(Composite parent, IJavaProject javaProject) {
     Label label = new Label(parent, NONE);
     label.setText(TEXT_TEST_SOURCE_FOLDER);
     label.setToolTipText(TOOLTIP_TEST_SOURCE_FOLDER);
 
-    testSourceFolderField = new Text(parent, SWT.SINGLE | SWT.BORDER);
-    testSourceFolderField.setText(Preferences.getInstance().getTestSourceDirectoryFromPreferences(null));
+    Text testSourceFolderField = new Text(parent, SWT.SINGLE | SWT.BORDER);
+    testSourceFolderField.setText(Preferences.instance().getTestSourceDirectory(javaProject));
     testSourceFolderField.setToolTipText(TOOLTIP_TEST_SOURCE_FOLDER);
 
     GridData layoutForTextFields = new GridData(SWT.FILL, SWT.CENTER, true, false);
     layoutForTextFields.horizontalIndent = 30;
     layoutForTextFields.minimumWidth = 40;
     testSourceFolderField.setLayoutData(layoutForTextFields);
+    return testSourceFolderField;
   }
 
   public void init(IWorkbench workbench) {
@@ -79,8 +81,8 @@ public class AssertionsPreferencePage extends PreferencePage implements IWorkben
 
   @Override
   public boolean performOk() {
-    Preferences.getInstance().setTestSourceDirectory(testSourceFolderField.getText());
-    Preferences.getInstance().clearProjectCache();
+    Preferences.instance().setTestSourceDirectory(null, testSourceFolderField.getText());
+    Preferences.instance().clearProjectCache();
     return super.performOk();
   }
 }

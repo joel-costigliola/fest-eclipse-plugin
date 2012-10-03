@@ -5,7 +5,7 @@ import static org.fest.eclipse.assertions.util.StringConstants.NEWLINE;
 public interface PreferenceConstants
 {
   String TEXT_GENERAL_SETTINGS = "General settings for Fest assertions (can be refined for each project):";
-  String USE_PROJECT_SPECIFIC_SETTINGS = "org.moreunit.useprojectsettings";
+  String USE_PROJECT_SPECIFIC_SETTINGS = "org.fest.eclipse.assertions.useprojectsettings";
   String TEST_SOURCE_DIRECTORY = "org.fest.eclipse.assertions.preferences.test_source_directory";
   String TEST_SOURCE_DIRECTORY_DEFAULT = "src/test/java";
   String TEXT_TEST_SOURCE_FOLDER = "Test base source folder:";

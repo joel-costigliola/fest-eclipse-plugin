@@ -18,8 +18,8 @@ import org.junit.Before;
  */
 public abstract class SimpleProjectTestCase extends JdtTestCase {
 
-  private static final String SOURCES_FOLDER_NAME = "src";
-  private static final String TEST_FOLDER_NAME = "test";
+  private static final String SOURCES_FOLDER_NAME = "src/main/java";
+  private static final String TEST_FOLDER_NAME = "src/test/java";
   private static final String PACKAGE_NAME = "org";
 
   private static final Pattern TYPE_PATTERN = Pattern.compile(".*\\s*(?:class|interface|enum)\\s+([\\w]+)(?:\\s*\\{|\\s+extends\\s+|\\s+implements\\s+).*");

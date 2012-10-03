@@ -36,9 +36,31 @@
   <extension
         point="org.eclipse.ui.preferencePages">
      <page
-           class="org.fest.eclipse.assertions.preferences.AssertionsPreferencePage"
+           class="org.fest.eclipse.assertions.preferences.FestAssertionsPreferencePage"
            id="org.fest.eclipse.assertionsPreferencePage"
            name="Fest Assertions">
+     </page>
+  </extension>
+  <extension
+        point="org.eclipse.ui.propertyPages">
+     <page
+           class="org.fest.eclipse.assertions.properties.FestAssertionsPropertyPage"
+           id="org.fest.eclipse.assertions.properties"
+           name="Fest Assertions">
+        <enabledWhen>
+		     <adapt
+		        type="org.eclipse.core.resources.IProject">
+		        <and>
+		          <test
+		              property="org.eclipse.core.resources.projectNature"
+		              value="org.eclipse.jdt.core.javanature">
+		          </test>
+		          <instanceof
+		             value="org.eclipse.core.resources.IProject">
+		          </instanceof>
+		        </and>
+		      </adapt>
+        </enabledWhen>
      </page>
   </extension>
 

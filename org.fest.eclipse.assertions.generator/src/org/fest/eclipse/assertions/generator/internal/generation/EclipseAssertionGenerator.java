@@ -71,7 +71,7 @@ public class EclipseAssertionGenerator {
   private static File getAssertionClassDestinationDirectory(IType type) throws JavaModelException {
     IJavaProject javaProject = type.getCompilationUnit().getJavaProject();
     // get test base directory as defined in preferences, ex : src/test/java
-    String testSourceDirectory = Preferences.getInstance().getTestSourceDirectoryFromPreferences(javaProject);
+    String testSourceDirectory = Preferences.instance().getTestSourceDirectory(javaProject);
     IPath javaProjectPath = javaProject.getCorrespondingResource().getLocation();
     IPath destinationFolderPath = javaProjectPath.append(testSourceDirectory);
     // get type's package elements, if type is org.demo.Player, then package elements -> ["org", "demo"]

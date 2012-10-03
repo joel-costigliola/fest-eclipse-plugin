@@ -27,7 +27,7 @@ public class Preferences {
     initStore(getWorkbenchStore());
   }
 
-  public static Preferences getInstance() {
+  public static Preferences instance() {
     return instance;
   }
 
@@ -54,12 +54,12 @@ public class Preferences {
     getProjectStore(javaProject).setValue(USE_PROJECT_SPECIFIC_SETTINGS, hasProjectSpecificSettings);
   }
 
-  public String getTestSourceDirectoryFromPreferences(IJavaProject javaProject) {
+  public String getTestSourceDirectory(IJavaProject javaProject) {
     return store(javaProject).getString(TEST_SOURCE_DIRECTORY);
   }
 
-  public void setTestSourceDirectory(String directory) {
-    getProjectStore(null).setValue(TEST_SOURCE_DIRECTORY, directory);
+  public void setTestSourceDirectory(IJavaProject javaProject, String directory) {
+    getProjectStore(javaProject).setValue(TEST_SOURCE_DIRECTORY, directory);
   }
 
   private IPreferenceStore store(IJavaProject javaProject) {
@@ -89,7 +89,7 @@ public class Preferences {
   }
 
   public IPackageFragmentRoot getTestSourceFolder(IJavaProject project, IPackageFragmentRoot mainSrcFolder) {
-    String testSourceDirectory = getTestSourceDirectoryFromPreferences(project);
+    String testSourceDirectory = getTestSourceDirectory(project);
     for (IPackageFragmentRoot packageFragmentRoot : PluginTools.findJavaSourceFoldersFor(project)) {
       if (PluginTools.getPathStringWithoutProjectName(packageFragmentRoot).equals(testSourceDirectory)) {
         return packageFragmentRoot;
@@ -100,7 +100,7 @@ public class Preferences {
   }
 
   public static ProjectPreferences forProject(IJavaProject project) {
-    return getInstance().getProjectView(project);
+    return instance().getProjectView(project);
   }
 
   public ProjectPreferences getProjectView(IJavaProject project) {
