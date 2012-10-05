@@ -10,6 +10,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.handlers.HandlerUtil;
 
@@ -85,9 +86,9 @@ public class TypeSelectionProvider {
   }
 
   private static IEditorInput getActiveEditorInput(ExecutionEvent event) {
-    Object o = HandlerUtil.getVariable(event, ISources.ACTIVE_EDITOR_INPUT_NAME);
-    if (o instanceof IEditorInput) {
-      return (IEditorInput) o;
+    Object o = HandlerUtil.getVariable(event, ISources.ACTIVE_EDITOR_NAME);
+    if (o instanceof IEditorPart) {
+      return ((IEditorPart) o).getEditorInput();
     }
     return null;
   }
