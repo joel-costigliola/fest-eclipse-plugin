@@ -71,7 +71,7 @@ header h2 {
 #downloads .btn {
   display: inline-block;
   text-align: center;
-  margin: 0;
+  margin-top:15px;
 }
 
 /* Main Content
@@ -183,6 +183,10 @@ hr {
   border: 0;
   border-bottom: 1px dashed #b5e853;
   color: #b5e853;
+}
+
+img {
+  margin: 10px 0px;
 }
 
 /* Buttons

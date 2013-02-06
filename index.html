@@ -18,12 +18,8 @@
 
     <header>
       <div class="container">
-        <h1>Fest-eclipse-plugin</h1>
-        <h2>Fest assertions generator Eclipse plugin</h2>
-
+        <h1>Fest assertions generator Eclipse plugin</h1>
         <section id="downloads">
-          <a href="https://github.com/joel-costigliola/fest-eclipse-plugin/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/joel-costigliola/fest-eclipse-plugin/tarball/master" class="btn">Download as .tar.gz</a>
           <a href="https://github.com/joel-costigliola/fest-eclipse-plugin" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
         </section>
       </div>
@@ -35,14 +31,29 @@
 
 <p>This plugin will help you to get assertions for your own classes by generating them.</p>
 
-Sections :
 <ol>
-<li>Installation</li>
-<li>How it works</li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#how-to">How it works</a></li>
 </ol>
 
+<h2 id="installation">Fest plugin installation</h2>
 
-<h2>How it works</h2>
+Go to : Help > Install new software > Add...<br> 
+then set :
+<ol>
+<li>Name to 'Fest' (or whatever you want)</li>
+<li>location to : http://joel-costigliola.github.com/fest-eclipse-plugin/repository/</li>
+</ol>
+
+<img src="images/installation-add-repository.png" id="installation-add-repository"/>
+
+<p>If everything is ok, you should be able to select and install Fest plugin </p>
+
+<img src="images/installation-fest.png" id="installation-fest"/>
+
+<p>The install takes some times (don't know why ...).<br>Accept the licence agreement without reading it :) ... restart eclipse and you are done. </p>
+
+<h2 id="how-to">How it works</h2>
 
 <p>Let's say you want to generate assertions specific to the Person class below : </p>
 
@@ -85,6 +96,7 @@ public class Player {
 
 <img src="images/menu.png" id="menu-image"/>
 
+
 <h2>Generated assertions</h2>
 
 <p>The generated assertions class (<a href="#player-assert">PlayerAssert</a>) has been created in the same package but in test source directory (default being 'src/test/java/'). You can define another test source directory in plugin preferences : Window > Preferences > Fest Assertions.
@@ -93,12 +105,35 @@ public class Player {
 
 <pre class="prettyprint">
 String[] teams = {"Cleveland", "Miami"};
-Player player= new Player("Lebron James", 28, false, teams);
+Player player = new Player("Lebron James", 28, false, teams);
+// you can make a static import if you don't want to see PlayerAssert.
 PlayerAssert.assertThat(player).hasAge(28).hasName("Lebron James").hasTeams("Miami");
 </pre>   
 
-<p>The generated assertion class is just a quick start for you to have custom assertions, you should complete it with richer assertions to suit your needs !<br>Note that the generated assertions code relies on <a href="https://github.com/alexruiz/fest-assert-2.x/wiki">Fest assert core 2.0M8</a></p>
+<p>The generated assertion class is just a quick start for you to have custom assertions, you should complete it with richer assertions to suit your needs !<br>Note that the generated assertions code relies on <a href="https://github.com/alexruiz/fest-assert-2.x/wiki">Fest assert core 2.0M8</a>, it should be on your classpath along with its dependencies (see this <a href="https://github.com/alexruiz/fest-assert-2.x/wiki/One-minute-starting-guide">page</a> to install Fest core assertions).</p>
 
+<p>What you could do now, is to provide a single entry point for all assertions : Fest ones and yours.
+It is easy, inherit from Assertions and add assertThat methods for your own types, see the example below or <a href="https://github.com/joel-costigliola/fest-examples/blob/master/src/main/java/org/fest/assertions/examples/custom/MyProjectAssertions.java">this one</a> taken from <a href="https://github.com/joel-costigliola/fest-examples/">fest-examples</a> project :
+
+
+
+<pre class="prettyprint">
+package example;
+
+import org.fest.assertions.api.Assertions;
+
+/**
+ * A single entry point for all assertions, Fest standard assertions and MyProject custom assertions.
+ * With  MyProjectAssertions.assertThat static import, you will access all possible assertions (standard and custom ones)
+ */
+public class MyProjectAssertions extends Assertions { // extending make all standard Fest assertions available.  
+
+  // add an entry point for Player assertions
+  public static PlayerAssert assertThat(Player actual) {
+    return new PlayerAssert(actual);
+  }
+}
+</pre>
 
 <h2  id="player-assert">Complete PlayerAssert class source</h2>
 <pre class="prettyprint">
@@ -236,7 +271,6 @@ public class PlayerAssert extends AbstractAssert<PlayerAssert, Player> {
     return this;
   }
 }
-
 </pre>
 
       </section>
