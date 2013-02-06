@@ -2,3 +2,5 @@
 bin
 target
 copy*.sh
+test-workspace
+repository
