@@ -3,5 +3,13 @@
    <feature url="features/org.fest.eclipse.assertions.generator_1.0.0.qualifier.jar" id="org.fest.eclipse.assertions.generator" version="1.0.0.qualifier">
       <category name="org.fest.eclipse.assertions"/>
    </feature>
-   <category-def name="org.fest.eclipse.assertions" label="Fest Assertions"/>
+   <category-def name="org.fest.eclipse.assertions" label="Fest Assertions">
+      <description>
+         The Assertion Generator is able to create assertions specific to your own classes.
+
+Let&apos;s say that you have a Player class with name and team attributes, the generator is able to create a PlayerAssert assertions class with hasName and hasTeam assertions, to write code like :
+
+assertThat(mvp).hasName(&quot;Lebron James&quot;).hasTeam(&quot;Miami Heat&quot;);
+      </description>
+   </category-def>
 </site>
