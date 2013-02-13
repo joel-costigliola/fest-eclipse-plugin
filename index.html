@@ -11,14 +11,14 @@
 
     <script type="text/javascript" src="javascripts/prettify.js"></script>
 
-    <title>Fest-eclipse-plugin by joel-costigliola</title>
+    <title>FEST Eclipse plugin</title>
   </head>
 
   <body onload="prettyPrint()">
 
     <div class="container">
       <section id="main_content">
-        <h1>Welcome to Fest eclipse plugin documentation !</h1>
+        <h1>Welcome to FEST eclipse plugin documentation !</h1>
 
 <p>This plugin will help you to get assertions for your own classes by generating them, it relies internally on <a href="https://github.com/joel-costigliola/fest-assertion-generator/wiki">fest-assertion-generator</a>.</p>
 
@@ -29,18 +29,18 @@
 
 <p>The project is hosted on <a href="https://github.com/joel-costigliola/fest-eclipse-plugin">GitHub</a> and would not have been possible without <a href="https://github.com/ndemengel">Nicolas Demengel</a> help, Thanks Nicolas !</p>
 
-<h2 id="installation">Fest plugin installation</h2>
+<h2 id="installation">FEST plugin installation</h2>
 
 Go to : Help > Install new software > Add...<br> 
 Then set :
 <ol>
-<li>Name to : Fest (or whatever you want)</li>
+<li>Name to : FEST (or whatever you want)</li>
 <li>location to : http://joel-costigliola.github.com/fest-eclipse-plugin/repository/</li>
 </ol>
 
 <img src="images/installation-add-repository.png" id="installation-add-repository"/>
 
-<p>If everything is ok, you should be able to select and install Fest plugin </p>
+<p>If everything is ok, you should be able to select and install FEST plugin </p>
 
 <img src="images/installation-fest.png" id="installation-fest"/>
 
@@ -103,9 +103,9 @@ Player player = new Player("Lebron James", 28, false, teams);
 PlayerAssert.assertThat(player).hasAge(28).hasName("Lebron James").hasTeams("Miami");
 </pre>   
 
-<p>The generated assertion class is just a quick start for you to have custom assertions, you should complete it with richer assertions to suit your needs !<br>Note that the generated assertions code relies on <a href="https://github.com/alexruiz/fest-assert-2.x/wiki">Fest assert core 2.0M8</a>, it should be on your classpath along with its dependencies (see this <a href="https://github.com/alexruiz/fest-assert-2.x/wiki/One-minute-starting-guide">page</a> to install Fest core assertions).</p>
+<p>The generated assertion class is just a quick start for you to have custom assertions, you should complete it with richer assertions to suit your needs !<br>Note that the generated assertions code relies on <a href="https://github.com/alexruiz/fest-assert-2.x/wiki">FEST assert core 2.0M8</a>, it should be on your classpath along with its dependencies (see this <a href="https://github.com/alexruiz/fest-assert-2.x/wiki/One-minute-starting-guide">page</a> to install FEST core assertions).</p>
 
-<p>What you could do now, is to provide a single entry point for all assertions : Fest ones and yours.
+<p>What you could do now, is to provide a single entry point for all assertions : FEST ones and yours.
 It is easy, inherit from Assertions and add assertThat methods for your own types, see the example below or <a href="https://github.com/joel-costigliola/fest-examples/blob/master/src/main/java/org/fest/assertions/examples/custom/MyProjectAssertions.java">this one</a> taken from <a href="https://github.com/joel-costigliola/fest-examples/">fest-examples</a> project :
 
 
@@ -128,7 +128,7 @@ public class MyProjectAssertions extends Assertions { // extending make all stan
 }
 </pre>
 
-<h2  id="player-assert">Complete PlayerAssert class source</h2>
+Complete PlayerAssert class source :
 <pre class="prettyprint">
 package example;
 
